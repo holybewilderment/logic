@@ -12,7 +12,7 @@ int main() {
     while(!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE); // TODO: Dark theme?
-        DrawText("tigra tigra tigra tig", 6, 6, 20, BLACK);
+        DrawText("guguigyuhgyuhfgvyufyf78r6767ed6sawasd", 6, 6, 20, BLACK);
         EndDrawing();
     }
 
