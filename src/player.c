@@ -12,13 +12,21 @@ void PlayerJump() {
     if(Player.onground) 
         return;
 
-    
+
 }
 
-void PlayerMoveRight() {
-    // игрок идет вправо (вау)
-}
+void PlayerHandleControl() {
+    Player.ismoving = false;
+    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
+        Player.ismoving = true;
+        Player.direction = 1;
+    }
+    else if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
+        Player.ismoving = true;
+        Player.direction = -1;
+    }
 
-void PlayerMoveLeft() {
-    // игрок идет влево (ноу вей)
+    if (IsKeyPressed(KEY_SPACE)) {
+        PlayerJump();
+    }
 }

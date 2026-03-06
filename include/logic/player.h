@@ -3,16 +3,17 @@
 
 #include <logic/base.h>
 
-struct Player {
-    int ypos;
-    int xpos;
+struct PlayerBase {
+    float posx;
+    float posy;
+    int direction;
     bool onground;
+    bool ismoving;
+    bool iscolliding;
+    const float speed = 1.1f;
 };
 
+struct PlayerBase Player;
 
 void PlayerSpawn(int x, int y); // спавним игрока на определенных координатах
-
-void PlayerJump(); // там короче прыжок такой оп
-void PlayerMoveRight(); // тут мы вправо едем (консервы)
-void PlayerMoveLeft(); // тут влево (комуняги)
-
+void PlayerHandleControl(void); // движение в целом
