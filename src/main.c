@@ -1,8 +1,12 @@
-// Copyright holybewilderment, 2026, All rights reserved 
+// SPDX-License-Identifier: BSD-3-Clause
+// Copyright (c) 2026, holybewilderment 
+
 #include <stdio.h>
-#include <raylib/raylib.h>
+#include <logic/base.h>
+#include <logic/player.h>
 
 int main() {
+    // ресайзить нельзя (мне впадлу это делать щас)
     const int height = 576;
     const int width = 768;
 
@@ -12,7 +16,8 @@ int main() {
     while(!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE); // TODO: Dark theme?
-        DrawText("guguigyuhgyuhfgvyufyf78r6767ed6sawasd", 6, 6, 20, BLACK);
+        PlayerSpawn(56, 68);
+
         EndDrawing();
     }
 
