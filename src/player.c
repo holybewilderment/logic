@@ -3,30 +3,19 @@
 
 #include <logic/player.h>
 
-void PlayerSpawn(int x, int y) {
-    DrawRectangle(x, y, 20, 20, BLACK);
-}
-
-void PlayerJump() {
-    // игрок поднимается на определенные координаты, и потом падает
-    if(Player.onground) 
-        return;
-
-
-}
-
-void PlayerHandleControl() {
-    Player.ismoving = false;
+void PlayerUpdate(PlayerBase *player, float delta) {
+    player->ismoving = false;
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
-        Player.ismoving = true;
-        Player.direction = 1;
+        player->ismoving = true;
+        player->position.x = player->position.x + PLAYER_SPEED * delta;
     }
     else if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
-        Player.ismoving = true;
-        Player.direction = -1;
+        player->ismoving = true;
+        player->position.x = player->position.x - PLAYER_SPEED * delta;
     }
 
-    if (IsKeyPressed(KEY_SPACE)) {
-        PlayerJump();
+    if (IsKeyPressed(KEY_SPACE) && player->canjump) {
+        player->speed = -PLAYER_SPEED_JMP;
+        player->canjump = false;
     }
 }

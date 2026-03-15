@@ -2,5 +2,6 @@
 // Copyright (c) 2026, holybewilderment 
 
 #include <raylib/raylib.h>
+#include <raylib/raymath.h>
 #include <time.h>
 #include <stdbool.h>

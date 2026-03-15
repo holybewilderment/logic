@@ -3,17 +3,23 @@
 
 #include <logic/base.h>
 
-struct PlayerBase {
-    float posx;
-    float posy;
-    int direction;
+#define G 2
+#define PLAYER_SPEED 1.1f
+#define PLAYER_SPEED_JMP 1.925f
+
+typedef struct PlayerBase {
+    Vector2 position;
     bool onground;
     bool ismoving;
     bool iscolliding;
-    const float speed = 1.1f;
-};
+    bool canjump;
+    float speed;
+} PlayerBase;
 
-struct PlayerBase Player;
+typedef struct EnvBase {
+    Rectangle rect;
+    int blocking;
+    Color color;
+} EnvBase;
 
-void PlayerSpawn(int x, int y); // спавним игрока на определенных координатах
-void PlayerHandleControl(void); // движение в целом
+void PlayerUpdate(PlayerBase *player, float delta); // движение в целом
