@@ -14,4 +14,4 @@ if(APPLE)
     target_link_libraries(logic-game ${CMAKE_SOURCE_DIR}/lib/macos/libraylib.a "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
 endif()
 
-target_sources(logic-game PRIVATE src/main.c src/player.c)
+target_sources(logic-game PRIVATE src/main.c src/player.c src/levels.c)
