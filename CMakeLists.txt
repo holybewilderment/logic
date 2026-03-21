@@ -15,7 +15,10 @@ if(APPLE)
 elseif(WIN32)
     # вин 7 форева
     target_compile_definitions(logic-game PRIVATE _WIN32_WINNT=0x0601)
-    target_link_libraries(logic-game PRIVATE ${CMAKE_SOURCE_DIR}/lib/windows/raylib.lib)
+    if(MSVC)
+        message(FATAL_ERROR Скачайте MSYS2)
+    endif()
+    target_link_libraries(logic-game ${CMAKE_SOURCE_DIR}/lib/win64/libraylib.a winmm)
 elseif(LINUX)
 ### потом
 endif()
