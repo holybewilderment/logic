@@ -12,7 +12,6 @@ typedef struct PlayerBase {
     Vector2 position;
     bool onground;
     bool ismoving;
-    bool iscolliding;
     bool canjump;
     float speed;
 } PlayerBase;
