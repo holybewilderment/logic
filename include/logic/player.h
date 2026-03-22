@@ -4,7 +4,7 @@
 //#include <logic/base.h>
 #include <logic/levels.h>
 
-#define G 400
+#define G 560
 #define PLAYER_SPEED 300.0f
 #define PLAYER_SPEED_JMP 280.0f
 

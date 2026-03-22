@@ -13,7 +13,8 @@ int main(int argc, char *argv[]) {
     // ресайзить нельзя (мне впадлу это делать щас)
     const int wheight = 576;
     const int wwidth = 768;
-    Texture2D bg = LoadTexture("");
+    Texture2D txbrick = LoadTexture("resources/kirpich_texture.png");
+    Texture2D txplayer = LoadTexture("resource/player_texture.png");
 
     InitWindow(wwidth, wheight, "Logic Game");
     PlayerBase player = {0};
@@ -34,11 +35,11 @@ int main(int argc, char *argv[]) {
     camera.rotation = 0.0f;
     camera.zoom = 0.5f;
 
-    SetTargetFPS(60);
-
     while(!WindowShouldClose()) {
         float DeltaTime = GetFrameTime();
         PlayerUpdate(&player, env, envItemLength, DeltaTime);
+
+     //   printf("envItemLength: %i", envItemLength);
 
         BeginDrawing(); 
             ClearBackground(DARKGRAY);
@@ -48,7 +49,8 @@ int main(int argc, char *argv[]) {
             BeginMode2D(camera);
                 for (int i = 0; i < envItemLength; i++) DrawRectangleRec(env[i].rect, env[i].color);
                 Rectangle playerRect = { player.position.x - 20, player.position.y - 40, 40.0f, 40.0f };
-                DrawRectangleRec(playerRect, WHITE);
+                DrawTextureRec(txbrick, playerRect, player.position, RAYWHITE);
+                //DrawRectangleRec(playerRect, WHITE);
                 if (player.position.y >= 1000.0f) {player.position = (Vector2){500, 100};} // помоему это вообще глупо но оно работает поэтому допустим
             EndMode2D();
         EndDrawing();
