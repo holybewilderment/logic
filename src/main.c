@@ -37,6 +37,10 @@ int main(int argc, char *argv[]) {
 
     Texture2D txbrick = LoadTexture("resources/kirpich_texture.png");
     Texture2D txplayer = LoadTexture("resources/player_texture.png");
+    Texture2D txforeground = LoadTexture("resources/foreground.png");
+
+    float frgscroll = 0.0f;
+
     SetTargetFPS(60);
 
     while(!WindowShouldClose()) {
@@ -47,15 +51,25 @@ int main(int argc, char *argv[]) {
             TakeScreenshot("logic_screenshot.png");
         }
 
+        frgscroll = frgscroll - 0.4f;
+        if (frgscroll <= -txforeground.width*2) frgscroll = 0;
+
      //   printf("envItemLength: %i", envItemLength);
 
         BeginDrawing(); 
             ClearBackground(RAYWHITE);
+
+           // DrawTextureEx(txforeground, (Vector2){frgscroll, 0}, 0.0f, 1.5f, WHITE);
+           // DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, 0}, 0.0f, 1.5f, WHITE);
+
+            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 20)}, 0.0f, 1.5f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 20)}, 0.0f, 1.5f, WHITE);
+
             DrawText("ESC - Quit", 5, 5, 10, BLACK);
             DrawText(TextFormat("x: %.2f, y: %.2f", player.position.x, player.position.y), 5, 15, 10, BLACK);
             DrawText(TextFormat("Time elapsed: %.3fs", GetTime()), 5, 25, 10, BLACK);
             DrawText(TextFormat("FPS: %i", GetFPS()), 5, 35, 10, BLACK);
-       //     for (int i = 1; i < wheight, i = i + 10;) {DrawTexture(txbrick, i, i, WHITE);}
+
             BeginMode2D(camera);
                 for (int i = 0; i < envItemLength; i++) DrawRectangleRec(env[i].rect, env[i].color);
                // Rectangle playerRect = { player.position.x - 20, player.position.y - 40, 40.0f, 40.0f };
@@ -63,10 +77,12 @@ int main(int argc, char *argv[]) {
                // DrawRectangleRec(playerRect, WHITE);
                 if (player.position.y >= 1000.0f) {player.position = (Vector2){46, 10};} // помоему это вообще глупо но оно работает поэтому допустим
             EndMode2D();
+
         EndDrawing();
     }
 
     UnloadTexture(txbrick);
+    UnloadTexture(txforeground);
     UnloadTexture(txplayer);
     printf("[logic] Time elapsed: %f s\n", GetTime());
 
