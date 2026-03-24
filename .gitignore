@@ -44,3 +44,8 @@ dkms.conf
 # debug information files
 *.dwo
 .DS_Store
+
+logic_screenshot.*
+logic-macos
+logic-win64
+logic-linux64

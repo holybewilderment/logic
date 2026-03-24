@@ -14,16 +14,16 @@ int main(int argc, char *argv[]) {
     const int wheight = 600;
     const int wwidth = 800;
 
-    InitWindow(wwidth, wheight, "Logic Game");
+    InitWindow(wwidth, wheight, "(Kinda) Logic Game");
     PlayerBase player = {0};
-    player.position = (Vector2){5, 10};
+    player.position = (Vector2){0, -282};
     player.speed = 0;
 
     // {x, y, width, height}, blocking (коллизия), color
     EnvBase env[] = {
-        {{ 20, 10, 400, 10 }, 1, BLACK },
-        {{ 50, 240, 100, 10 }, 1, BLACK },
-        {{ 650, 300, 100, 10 }, 1, BLACK }
+        {{ -200, -280, 400, 30 }, 1, BLACK },
+        {{ 450, 70, 100, 30 }, 1, BLACK },
+        {{ 650, 300, 100, 30 }, 1, BLACK }
     };
     
     int envItemLength = sizeof(env)/sizeof(env[0]);
@@ -33,7 +33,6 @@ int main(int argc, char *argv[]) {
     camera.offset = (Vector2){wwidth / 2.0f, wheight / 2.0f};
     camera.rotation = 0.0f;
     camera.zoom = 0.5f;
-
 
     Texture2D txbrick = LoadTexture("resources/kirpich_texture.png");
     Texture2D txplayer = LoadTexture("resources/player_texture.png");
@@ -51,10 +50,8 @@ int main(int argc, char *argv[]) {
             TakeScreenshot("logic_screenshot.png");
         }
 
-        frgscroll = frgscroll - 0.4f;
-        if (frgscroll <= -txforeground.width*2) frgscroll = 0;
-
-     //   printf("envItemLength: %i", envItemLength);
+        frgscroll = frgscroll - 1.0f;
+        if (frgscroll <= -txforeground.width*1.7) frgscroll = 0;
 
         BeginDrawing(); 
             ClearBackground(RAYWHITE);
@@ -62,8 +59,8 @@ int main(int argc, char *argv[]) {
            // DrawTextureEx(txforeground, (Vector2){frgscroll, 0}, 0.0f, 1.5f, WHITE);
            // DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, 0}, 0.0f, 1.5f, WHITE);
 
-            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 20)}, 0.0f, 1.5f, WHITE);
-            DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 20)}, 0.0f, 1.5f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.5f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.7f, WHITE);
 
             DrawText("ESC - Quit", 5, 5, 10, BLACK);
             DrawText(TextFormat("x: %.2f, y: %.2f", player.position.x, player.position.y), 5, 15, 10, BLACK);
@@ -72,10 +69,8 @@ int main(int argc, char *argv[]) {
 
             BeginMode2D(camera);
                 for (int i = 0; i < envItemLength; i++) DrawRectangleRec(env[i].rect, env[i].color);
-               // Rectangle playerRect = { player.position.x - 20, player.position.y - 40, 40.0f, 40.0f };
                 DrawTextureRec(txplayer, (Rectangle){0, 0, 40.0f, 40.0f}, (Vector2){player.position.x - 20, player.position.y - 40}, RAYWHITE);
-               // DrawRectangleRec(playerRect, WHITE);
-                if (player.position.y >= 1000.0f) {player.position = (Vector2){46, 10};} // помоему это вообще глупо но оно работает поэтому допустим
+                if (player.position.y >= 1000.0f) {player.position = (Vector2){0, -281};} // помоему это вообще глупо но оно работает поэтому допустим
             EndMode2D();
 
         EndDrawing();
