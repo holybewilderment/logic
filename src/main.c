@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
            // DrawTextureEx(txforeground, (Vector2){frgscroll, 0}, 0.0f, 1.5f, WHITE);
            // DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, 0}, 0.0f, 1.5f, WHITE);
 
-            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.5f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.7f, WHITE);
             DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.7f, WHITE);
 
             DrawText("ESC - Quit", 5, 5, 10, BLACK);

@@ -6,12 +6,18 @@
 void PlayerUpdate(PlayerBase *player, EnvBase *envItems, int envItemLength, float delta) {
     player->ismoving = false;
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
-        player->ismoving = true;
-        player->position.x = player->position.x + PLAYER_SPEED * delta;
+        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {}
+        else {
+            player->ismoving = true;
+            player->position.x = player->position.x + PLAYER_SPEED * delta; 
+        }
     }
     else if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
-        player->ismoving = true;
-        player->position.x = player->position.x - PLAYER_SPEED * delta;
+        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {}
+        else {
+            player->ismoving = true;
+            player->position.x = player->position.x - PLAYER_SPEED * delta;
+        }
     }
 
     if (IsKeyPressed(KEY_SPACE) && player->canjump) {
