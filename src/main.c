@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2026, holybewilderment 
 
-#include <unistd.h>
 #include <logic/player.h>
 
 int main(int argc, char *argv[]) {
@@ -11,8 +10,8 @@ int main(int argc, char *argv[]) {
     bool fullscreen;*/
 
     // ресайзить нельзя (мне впадлу это делать щас)
-    const int wheight = 600;
     const int wwidth = 800;
+    const int wheight = 600;
 
     InitWindow(wwidth, wheight, "(Kinda) Logic Game");
     PlayerBase player = {0};
@@ -50,8 +49,8 @@ int main(int argc, char *argv[]) {
             TakeScreenshot("logic_screenshot.png");
         }
 
-        frgscroll = frgscroll - 1.0f;
-        if (frgscroll <= -txforeground.width*1.7) frgscroll = 0;
+        frgscroll -= 1.0f;
+        if (frgscroll <= -txforeground.width*2) frgscroll = 0;
 
         BeginDrawing(); 
             ClearBackground(RAYWHITE);
@@ -59,8 +58,8 @@ int main(int argc, char *argv[]) {
            // DrawTextureEx(txforeground, (Vector2){frgscroll, 0}, 0.0f, 1.5f, WHITE);
            // DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, 0}, 0.0f, 1.5f, WHITE);
 
-            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.7f, WHITE);
-            DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 1.7f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 2.0f, WHITE);
+            DrawTextureEx(txforeground, (Vector2){txforeground.width * 2 + frgscroll, -(txforeground.height - wheight + 50)}, 0.0f, 2.0f, WHITE);
 
             DrawText("ESC - Quit", 5, 5, 10, BLACK);
             DrawText(TextFormat("x: %.2f, y: %.2f", player.position.x, player.position.y), 5, 15, 10, BLACK);
