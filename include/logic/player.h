@@ -4,9 +4,9 @@
 //#include <logic/base.h>
 #include <logic/levels.h>
 
-#define G 600
+#define G 560
 #define PLAYER_SPEED 300.0f
-#define PLAYER_SPEED_JMP 400.0f
+#define PLAYER_SPEED_JMP 310.0f
 #define PLAYER_SPEED_JUMP_PAD 550.0f
 
 typedef struct PlayerBase {

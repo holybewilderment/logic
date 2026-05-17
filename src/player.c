@@ -28,10 +28,11 @@ void PlayerUpdate(PlayerBase *player, EnvBase *envItems, int envItemLength, floa
     }
 
     bool hitObstacle = false;
-    Vector2 displacement = {0.0f, 0.0f};
+    float platformXDisplacement = 0.0f;
 
     Rectangle playerRect = { player->position.x - 20, player->position.y - 40, 40.0f, 40.0f };
 
+    if(player->speed >= 0.0f) {
     for (int i = 0; i < envItemLength; i++)
     {
         EnvBase *ei = envItems + i;
@@ -53,11 +54,16 @@ void PlayerUpdate(PlayerBase *player, EnvBase *envItems, int envItemLength, floa
             }
         }
         
+        float checkdistdown = player->speed * delta;
+        if(checkdistdown < 15.0f) checkdistdown = 15.0f;
+
+        float checkdistup = (player->speed >= 0.0f) ? 15.0f : 0.0f;
+
         if (ei->blocking &&
             ei->rect.x <= p->x &&
             ei->rect.x + ei->rect.width >= p->x &&
-            ei->rect.y >= p->y &&
-            ei->rect.y <= p->y + player->speed*delta)
+            ei->rect.y >= p->y - checkdistup &&
+            ei->rect.y <= p->y + checkdistdown)
         {
             // 2 - батут
             if (ei->type == 2) {
@@ -71,18 +77,22 @@ void PlayerUpdate(PlayerBase *player, EnvBase *envItems, int envItemLength, floa
 
                 // 3 - двигающаяся платформа
                 if(ei->type == 3) {
-                    float nexttime = GetTime() * ei->speed;
-                    float pingpong = fabsf(fmodf(nexttime, 2.0f) - 1.0f);
+                    player->canjump = true;
+                    hitObstacle = true;
+                    float currentTime = GetTime() * ei->speed;
+                    float nextTime = (GetTime() + delta) * ei->speed;
+                        
+                    float pingPongCurrent = fabsf(fmodf(currentTime, 2.0f) - 1.0f);
+                    float pingPongNext = fabsf(fmodf(nextTime, 2.0f) - 1.0f);
+                        
+                    Vector2 currentP = Vector2Lerp(ei->startpos, ei->endpos, pingPongCurrent);
+                    Vector2 nextP = Vector2Lerp(ei->startpos, ei->endpos, pingPongNext);
 
-                    Vector2 targetpos = Vector2Lerp(ei->startpos, ei->endpos, pingpong);
-                    displacement.x = targetpos.x - ei->currentpos.x;
-                    displacement.y = targetpos.y - ei->currentpos.y;
-                    if(CheckCollisionRecs(playerRect, ei->rect)){
-                        player->position.x = displacement.x;
-                    }
+                    platformXDisplacement = nextP.x - currentP.x;
                 }
             }
             break;
+        }
         }
     }
 
@@ -93,7 +103,6 @@ void PlayerUpdate(PlayerBase *player, EnvBase *envItems, int envItemLength, floa
     }
     else { 
         player->canjump = true;
-        player->position.x += displacement.x;
-        player->position.y += displacement.y;
+        player->position.x += platformXDisplacement;
     }
 }
